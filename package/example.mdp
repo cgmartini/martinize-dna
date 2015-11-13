@@ -1,0 +1,41 @@
+
+integrator               = md
+dt                       = 0.010
+nsteps                   = 50000
+
+nstxout                  = 0
+nstvout                  = 0
+nstfout                  = 0
+nstlog                   = 1000
+nstenergy                = 100
+nstxtcout                = 1000
+xtc_precision            = 100
+
+nstlist                  = 10
+ns_type                  = grid
+pbc                      = xyz
+rlist                    = 1.4
+
+coulombtype              = Shift
+rcoulomb_switch          = 0.0
+rcoulomb                 = 1.2
+epsilon_r                = 15
+vdw_type                 = Shift
+rvdw_switch              = 0.9
+rvdw                     = 1.2
+
+tcoupl                   = berendsen ;v-rescale 
+tc-grps                  = System 
+tau_t                    = 2.0 ;0.5 
+ref_t                    = 310 
+Pcoupltype               = isotropic
+Pcoupl                   = berendsen ;parrinello-rahman                               
+tau_p                    = 3.0       ;4.0                                             
+compressibility          = 3e-4      ;4.5e-5                                          
+ref_p                    = 1.0                                             
+
+gen_vel                  = no
+gen_temp                 = 310
+gen_seed                 = 473529
+
+constraints              = none 

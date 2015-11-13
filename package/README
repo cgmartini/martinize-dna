@@ -1,0 +1,68 @@
+Martini DNA - 14.08.2015
+
+This package includes files for creating and running systems using Martini DNA
+force field.
+
+This package includes the release version of the parameters.
+
+
+The package contains:
+  martini_v2.1-dna.itp      The general force field file with the new smaller 
+                            bead types for DNA bases. 
+  martini_v2.1P-dna.itp     Force field file for simulations with polarizable
+                            water.
+  martini_v2.0_ions.itp     The default martini ion parameters.
+  martinize-dna.py          A version of martinize.py script for creating 
+                            topologies for DNA molecules. Under development
+                            and currently works only when the input file 
+                            contains only the DNA molecule in .gro format.
+  example.mdp               An example mdp file, just the default Martini
+                            mdp with a shorter time step. 
+  dna_backmapping_files/    Files required to backmap DNA using Backward.
+  README                    This readme file. 
+
+
+Please note:
+
+Martinize-dna.py works better with GRO files so convert your PDB files 
+using editconf or another program. 
+
+In your .top file the #define RUBBER_BANDS has to be set before you include
+an itp file with elastic network in order for that EN to be active.
+
+Martinize-dna.py writes output to stdout, please read that to ensure that
+your topology was created successfully. Check espeacially whether the 
+DNA strands were recognized correctly (number of strands and lengths).
+
+
+Usage:
+
+There are four separate topology types that martinize-dna.py can create. For 
+simulating single-stranded DNA there are parameters without elastic network. 
+For double-straned DNA there is a weakly restrained model that allows more 
+realistic bending of DNA but still has known issues with the alignment of bases
+and stability when used with a longer time step. A very stiff elastic network 
+model is offered as an alternative solution for systems where DNA structure is
+not expected to change. For structures formed out of single strand but with a 
+well defined structure also a stiff elastic network is offered to prevent the
+structure from changing. There is also an option to restrain several strands
+using the same elastic network which can be used as basis for elastic networks
+of more complicated DNA structures.
+
+1 - ssDNA parameters
+python martinize-dna.py -dnatype ss -f [input.gro] -o [topology.top] -x [cg-structure.pdb]
+
+2 - dsDNA parameters with soft elastic network
+python martinize-dna.py -dnatype ds-soft -f [input.gro] -o [topology.top] -x [cg-structure.pdb]
+
+3 - dsDNA parameters with stiff elastic network
+python martinize-dna.py -dnatype ds-stiff -f [input.gro] -o [topology.top] -x [cg-structure.pdb]
+
+4 - ssDNA parameters with stiff elastic network
+python martinize-dna.py -dnatype ss-stiff -f [input.gro] -o [topology.top] -x [cg-structure.pdb]
+
+5 - General DNA parameters with soft elastic network
+python martinize-dna.py -dnatype all-soft -f [input.gro] -o [topology.top] -x [cg-structure.pdb]
+
+6 - General DNA parameters with stiff elastic network
+python martinize-dna.py -dnatype all-stiff -f [input.gro] -o [topology.top] -x [cg-structure.pdb]
